@@ -2,14 +2,27 @@ import fastify from "fastify";
 import { env } from "./config/env";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import { jsonSchemaTransform } from "fastify-type-provider-zod";
+import { 
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider
+} from "fastify-type-provider-zod";
+import fastifyCors from "@fastify/cors";
 
-export const app = fastify()
+export const app = fastify().withTypeProvider<ZodTypeProvider>()
+
+app.setSerializerCompiler(serializerCompiler)
+app.setValidatorCompiler(validatorCompiler)
+
+app.register(fastifyCors, {
+  origin: true,
+})
 
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'NLW Connect',
+      title: 'API Example',
       version: '0.1',
     },
   },
@@ -25,5 +38,4 @@ app.listen({
 }).then(() => {
   console.log(`🚀 Server is running at ${env.API_URL}:${env.PORT}`)
   console.log(`🚀 Docs is running at ${env.API_URL}:${env.PORT}/docs`)
-
 })

@@ -1,0 +1,10 @@
+services:
+  node-fastify-project:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: node-fastify-project
+    ports:
+      - "5432:5432"
