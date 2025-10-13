@@ -148,6 +148,16 @@ exports.Prisma.TokenScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserLoginScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  isValid: 'isValid',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -165,7 +175,8 @@ exports.TokenType = exports.$Enums.TokenType = {
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
-  Token: 'Token'
+  Token: 'Token',
+  UserLogin: 'UserLogin'
 };
 
 /**

@@ -31,8 +31,9 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  sessions Session[]
-  tokens   Token[]
+  sessions   Session[]
+  tokens     Token[]
+  userLogins UserLogin[]
 }
 
 model Session {
@@ -61,4 +62,22 @@ model Token {
 
   @@index([userId, token])
   @@map("tokens")
+}
+
+model UserLogin {
+  id     String @id @default(uuid())
+  code   String @unique
+  userId String
+
+  expiresAt DateTime @map("expires_at")
+
+  isValid Boolean @default(true) @map("is_valid")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, code])
+  @@map("userlogin")
 }

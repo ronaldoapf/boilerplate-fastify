@@ -10,6 +10,7 @@ import {
 } from "fastify-type-provider-zod";
 import fastifyCors from "@fastify/cors";
 import { usersController } from "./modules/users/api/controllers";
+import { authController } from "./modules/auth/api/controllers";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -34,6 +35,7 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
+app.register(authController)
 app.register(usersController)
 
 app.listen({
