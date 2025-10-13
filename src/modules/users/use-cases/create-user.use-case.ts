@@ -1,4 +1,4 @@
-import { PasswordEncrypter } from "../../../lib/password-encrypter"
+import { PasswordEncrypter } from "@/lib/password-encrypter";
 import { CreateUserDTO } from "../dtos/create-user-dto"
 import { UsersRepository } from "../repositories/users.repository"
 

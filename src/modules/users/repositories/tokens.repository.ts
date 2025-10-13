@@ -1,4 +1,4 @@
-import { Token } from "../../../lib/prisma"
+import { Token } from "@/lib/prisma"
 import { CreateTokenDTO } from "../dtos/create-token-dto"
 
 export interface TokensRepository {

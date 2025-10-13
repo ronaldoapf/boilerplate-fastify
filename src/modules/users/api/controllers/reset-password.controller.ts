@@ -1,13 +1,11 @@
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { PrismaUsersRepository } from "../../repositories/prisma-users.repository";
-import { recoveryPasswordSchema } from "../../dtos/recovery-password-dto";
-import { PrismaTokensRepository } from "../../repositories/prisma-tokens.repository";
-import { RecoveryPasswordUseCase } from "../../use-cases/recovery-password.use-case";
+import { PrismaTokensRepository } from "../../repositories/prisma/prisma-tokens.repository";
 import { resetPasswordSchema } from "../../dtos/reset-password-dto";
 import { ResetPasswordUseCase } from "../../use-cases/reset-password.use-case";
+import { PrismaUsersRepository } from "../../repositories/prisma/prisma-users.repository";
 
 export const resetPasswordController: FastifyPluginAsyncZod = async app => {
-  app.post("/users/reset-password", {
+  app.post("/users/password/reset", {
     schema: {
       summary: "Reset user's password",
       description: "Endpoint to reset user's password in the system.",
@@ -28,6 +26,6 @@ export const resetPasswordController: FastifyPluginAsyncZod = async app => {
       confirmPassword,
     })
 
-    reply.status(201).send(token)
+    reply.status(200).send()
   })
 }

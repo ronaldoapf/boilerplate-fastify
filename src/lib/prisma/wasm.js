@@ -150,7 +150,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/ronaldo.alves/www/personal/node-fastify-project/src/lib/prisma",
+      "value": "/home/ronaldoapf/www/boilerplate-fastify/src/lib/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -159,12 +159,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/ronaldo.alves/www/personal/node-fastify-project/prisma/schema.prisma",
+    "sourceFilePath": "/home/ronaldoapf/www/boilerplate-fastify/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
