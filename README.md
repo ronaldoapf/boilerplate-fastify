@@ -1,16 +1,20 @@
-# Boilerplat Fastify
+# Boilerplate Fastify
 
-A modern REST API boilerplate built with Fastify, featuring user management and password recovery functionality.
+A modern REST API boilerplate built with Fastify, featuring comprehensive user management, authentication, and password recovery functionality.
 
 ## What This Project Does
 
 This is a backend API application that provides:
 
-- **User Management**: User registration with email and password
-- **Password Recovery**: Request password reset tokens via email
-- **Password Reset**: Reset passwords using secure tokens
-- **Email Verification**: Token-based email verification system
-- **API Documentation**: Auto-generated Swagger/OpenAPI documentation
+- **User Management**: User registration with email and password validation
+- **Multi-Factor Authentication**:
+  - Password-based authentication
+  - OTP (One-Time Password) authentication via email codes
+- **Password Recovery**: Request password reset tokens via email with React Email templates
+- **Password Reset**: Secure token-based password reset system with expiration
+- **Email System**: Integrated email service using Mailtrap and React Email for professional templates
+- **Session Management**: Secure user session handling
+- **API Documentation**: Auto-generated Swagger/OpenAPI documentation with interactive UI
 
 ## Technologies
 

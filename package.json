@@ -3,17 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "v22.16.0",
+    "pnpm": "10.11.1"
+  },
   "scripts": {
     "dev": "tsx watch --env-file .env src/app.ts",
-    "email:dev": "email dev",
-    "studio": "npx prisma studio"
+    "studio": "npx prisma studio",
+    "build": "tsup src",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
   "devDependencies": {
-    "@react-email/preview-server": "4.3.0",
     "@types/node": "^24.7.1",
     "@types/nodemailer": "^7.0.2",
     "@types/react": "^19.2.2",
@@ -36,6 +40,7 @@
     "nodemailer": "^7.0.9",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "tsup": "8.5.0",
     "zod": "^4.1.12"
   }
 }
