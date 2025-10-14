@@ -4,7 +4,9 @@ import { RecoveryPasswordDTO } from "../dtos/recovery-password-dto";
 import { TokensRepository } from "../repositories/tokens.repository";
 import { UsersRepository } from "../repositories/users.repository"
 import { MailService } from "@/lib/mail";
-
+import { pretty, render } from "@react-email/components";
+import DropboxResetPasswordEmail from "@/emails/ForgotPasswordEmail";
+import { env } from "@/config/env";
 export class ForgotPasswordUseCase {
   constructor(
     private usersRepository: UsersRepository,
@@ -29,11 +31,15 @@ export class ForgotPasswordUseCase {
 
     const mailClient = new MailService()
 
+    const html = await pretty(await render(DropboxResetPasswordEmail({
+      userFirstname: "Louriane Gata",
+      resetPasswordLink: recoveryLink
+    })))
+
     mailClient.sendMail({
-      to: user.email,
+      to: env.NODE_ENV === "development" ? "ronaldo.alves.1997@gmail.com" : user.email,
       subject: "Recovery password",
-      html: `<p>You requested a password reset. Click the link below to reset your password:</p>
-             <a href="${recoveryLink}">Reset Password</a>`
+      html: html
     })
     
     return token;

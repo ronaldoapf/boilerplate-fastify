@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/lib/prisma"
 }
 
 datasource db {
@@ -31,8 +30,8 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  sessions Session[]
-  tokens   Token[]
+  sessions   Session[]
+  tokens     Token[]
   userLogins UserLogin[]
 }
 
@@ -65,13 +64,13 @@ model Token {
 }
 
 model UserLogin {
-  id        String   @id @default(uuid())
-  code      String   @unique
-  userId    String
+  id     String @id @default(uuid())
+  code   String
+  userId String
 
   expiresAt DateTime @map("expires_at")
 
-  isValid   Boolean  @default(true) @map("is_valid")
+  isValid Boolean @default(true) @map("is_valid")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
