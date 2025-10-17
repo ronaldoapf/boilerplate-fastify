@@ -1,4 +1,3 @@
-import { Token } from "@/lib/prisma";
 import { TokenType } from "../dtos/create-token-dto";
 import { RecoveryPasswordDTO } from "../dtos/recovery-password-dto";
 import { TokensRepository } from "../repositories/tokens.repository";
@@ -7,6 +6,8 @@ import { MailService } from "@/lib/mail";
 import { pretty, render } from "@react-email/components";
 import DropboxResetPasswordEmail from "@/emails/ForgotPasswordEmail";
 import { env } from "@/config/env";
+import { Token } from "../dtos/tokens";
+
 export class ForgotPasswordUseCase {
   constructor(
     private usersRepository: UsersRepository,
@@ -27,12 +28,12 @@ export class ForgotPasswordUseCase {
       userId: user.id
     })
 
-    const recoveryLink = `http://localhost:3333/users/reset-password?token=${token.id}`
+    const recoveryLink = `http://localhost:5173/reset-password?token=${token.token}`
 
     const mailClient = new MailService()
 
     const html = await pretty(await render(DropboxResetPasswordEmail({
-      userFirstname: "Louriane Gata",
+      userFirstname: user.name,
       resetPasswordLink: recoveryLink
     })))
 

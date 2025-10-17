@@ -5,6 +5,7 @@ const envSchema = z.object({
   DATABASE_URL: z.url(),
   MAILTRAP_API_KEY: z.string(),
   PORT: z.coerce.number().default(3333),
+  RESEND_API_KEY: z.string(),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 })
 

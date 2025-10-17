@@ -11,40 +11,27 @@ interface SendMailProps {
 
 export class MailService {
   private TOKEN = env.MAILTRAP_API_KEY;
-  private SENDER = {
-    address: "hello@demomailtrap.co",
-    name: "Mailtrap Test",
-  }
 
   private async getClient() {
-    // const account = await nodemailer.createTestAccount()
 
-    // const mailClient = nodemailer.createTransport({
-    //   host: account.smtp.host,
-    //   port: account.smtp.port,
-    //   secure: account.smtp.secure,
-    //   auth: {
-    //     user: account.user,
-    //     pass: account.pass,
-    //   },
-    // })
+    const mailClient = nodemailer.createTransport({
+      host: 'smtp.resend.com',
+      port: 465,
+      auth: {
+        user: 'resend',
+        pass: env.RESEND_API_KEY,
+      },
+    })
 
-    // return mailClient;
+    return mailClient;
 
-    const transport = nodemailer.createTransport(
-      MailtrapTransport({
-        token: this.TOKEN,
-      })
-    ) 
-
-    return transport
   }
 
   async sendMail({ to, text, html, subject }: SendMailProps) {
     const mailClient = await this.getClient();
 
      const info = await mailClient.sendMail({
-      from: this.SENDER,
+      from: 'Acme <onboarding@resend.dev>',
       to,
       text,
       html,

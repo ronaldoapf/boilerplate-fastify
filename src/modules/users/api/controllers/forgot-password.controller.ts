@@ -20,10 +20,10 @@ export const forgotPasswordController: FastifyPluginAsyncZod = async app => {
 
     const useCase = new ForgotPasswordUseCase(usersRepository, tokensRepository)
 
-    const token = await useCase.execute({
+    await useCase.execute({
       email
     })
 
-    reply.status(201).send(token)
+    reply.status(201).send()
   })
 }
