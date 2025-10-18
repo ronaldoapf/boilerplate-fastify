@@ -30,7 +30,7 @@
 - **Request Body:** See `createUserSchema`
 - **Response:** 201 Created
 
-### 5. Forgot Password
+### 5. Forgot Passwor
 - **POST** `/users/password/forgot`
 - **Description:** Request password recovery for a user.
 - **Request Body:** See `recoveryPasswordSchema`

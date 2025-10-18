@@ -7,29 +7,32 @@ import { addMinutes } from "date-fns"
 export class PrismaUserLoginRepository implements UserLoginRepository {
   async findByCode(code: string): Promise<UserLogin | null> {
     const userLogin = await prisma.userLogin.findUnique({ where: { code } })
-    
+
     return userLogin
   }
 
   async findById(id: string): Promise<UserLogin | null> {
     const userLogin = await prisma.userLogin.findUnique({ where: { id } })
-    
+
     return userLogin
   }
 
   async findByUserId(id: string): Promise<UserLogin | null> {
-    const userLogin = await prisma.userLogin.findFirst({ 
-      where: { 
+    const userLogin = await prisma.userLogin.findFirst({
+      where: {
         userId: id
-      } 
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
     })
-    
+
     return userLogin
   }
 
   async create(data: CreateUserLoginDTO): Promise<UserLogin> {
     const codeExpiresAt = addMinutes(new Date(), 10)
-    
+
     const userLogin = await prisma.userLogin.create({
       data: {
         code: data.code,

@@ -7,9 +7,9 @@ export class AuthenticateWithCodeUseCase {
   constructor(
     private usersRepository: UsersRepository,
     private userLoginRepository: UserLoginRepository
-  ) {}
+  ) { }
 
-  async execute({ 
+  async execute({
     code,
     email,
   }: AuthenticateWithCodeDTO): Promise<void> {
@@ -21,12 +21,12 @@ export class AuthenticateWithCodeUseCase {
 
     const getCode = await this.userLoginRepository.findByUserId(getUser.id)
 
-    if(!getCode) {
+    if (!getCode) {
       throw new Error("Invalid code.")
     }
 
     const isTokenExpiredOrNotValid = isAfter(new Date(), getCode.expiresAt) || getCode.code !== code || !getCode.isValid
-    
+
     if (isTokenExpiredOrNotValid) {
       throw new Error("This token has expired.")
     }

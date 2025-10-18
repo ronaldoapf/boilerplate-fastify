@@ -6,5 +6,6 @@ services:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: boilerplate-fastify
+      TZ: UTC
     ports:
       - "5432:5432"

@@ -9,6 +9,7 @@ import {
   type ZodTypeProvider
 } from "fastify-type-provider-zod";
 import fastifyCors from "@fastify/cors";
+import ScalarApiReference from '@scalar/fastify-api-reference'
 import { usersController } from "./modules/users/api/controllers";
 import { authController } from "./modules/auth/api/controllers";
 
@@ -31,9 +32,26 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 })
 
+
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
+
+app.register(ScalarApiReference, {
+  routePrefix: '/reference',
+  configuration: {
+    layout: 'modern',
+    theme: 'elysiajs',
+  },
+  hooks: {
+    onRequest: function (request, reply, done) {
+      done()
+    },
+    preHandler: function (request, reply, done) {
+      done()
+    },
+  }
+}) 
 
 app.register(authController)
 app.register(usersController)
@@ -42,5 +60,7 @@ app.listen({
   port: env.PORT,
 }).then(() => {
   console.log(`🚀 Server is running at ${env.API_URL}:${env.PORT}`)
-  console.log(`🚀 Docs is running at ${env.API_URL}:${env.PORT}/docs`)
+  console.log(`🚀 Swagger Docs is running at ${env.API_URL}:${env.PORT}/docs`)
+  console.log(`🚀 Scalar Reference is running at ${env.API_URL}:${env.PORT}/reference`)
+
 })
