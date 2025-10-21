@@ -2,7 +2,7 @@ import fastify from "fastify";
 import { env } from "./config/env";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-import { 
+import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
@@ -12,6 +12,8 @@ import fastifyCors from "@fastify/cors";
 import ScalarApiReference from '@scalar/fastify-api-reference'
 import { usersController } from "./modules/users/api/controllers";
 import { authController } from "./modules/auth/api/controllers";
+import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -51,7 +53,20 @@ app.register(ScalarApiReference, {
       done()
     },
   }
-}) 
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET_KEY,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m',
+  },
+})
+
+app.register(fastifyCookie)
 
 app.register(authController)
 app.register(usersController)

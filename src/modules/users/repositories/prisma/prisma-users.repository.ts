@@ -19,15 +19,18 @@ export class PrismaUsersRepository implements UsersRepository {
     const user = await prisma.user.findUnique({
       where: { id }
     })
-
-    return user   
+    if (!user) return null;
+    return {
+      ...user,
+      isEmailVerified: user.isEmailVerified,
+    }
   }
 
   async create(data: CreateUserDTO): Promise<User | null> {
     const user = await prisma.user.create({
       data
     })
-    
+
     return user
   }
 
@@ -36,7 +39,7 @@ export class PrismaUsersRepository implements UsersRepository {
       where: { email }
     })
 
-    return user    
+    return user
   }
 
 

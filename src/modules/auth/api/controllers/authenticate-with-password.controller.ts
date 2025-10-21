@@ -15,8 +15,32 @@ export const authenticateWithPasswordController: FastifyPluginAsyncZod = async a
     const usersRepository = new PrismaUsersRepository()
     const useCase = new AuthenticateWithPasswordUseCase(usersRepository)
 
-    await useCase.execute(request.body)
+    const user = await useCase.execute(request.body)
 
-    reply.status(200).send()
+    const token = await reply.jwtSign({
+      sub: user.id,
+      name: user.name
+    })
+
+    const refreshToken = await reply.jwtSign(
+      {
+        sign: {
+          sub: user.id,
+          expiresIn: '7d',
+        },
+      },
+    )
+
+    return reply
+      .setCookie('refreshToken', refreshToken, {
+        path: '/',
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      })
   })
 }
