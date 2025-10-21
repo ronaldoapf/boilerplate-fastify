@@ -2,6 +2,7 @@ import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { createUserSchema } from "../../dtos/create-user-dto";
 import { CreateUserUseCase } from "../../use-cases/create-user.use-case";
 import { PrismaUsersRepository } from "../../repositories/prisma/prisma-users.repository";
+import { PrismaTokensRepository } from "../../repositories/prisma/prisma-tokens.repository";
 
 export const createUserController: FastifyPluginAsyncZod = async app => {
   app.post("/users", {
@@ -13,7 +14,9 @@ export const createUserController: FastifyPluginAsyncZod = async app => {
     }
   }, async (request, reply) => {
     const usersRepository = new PrismaUsersRepository()
-    const useCase = new CreateUserUseCase(usersRepository)
+    const tokensRepository = new PrismaTokensRepository()
+
+    const useCase = new CreateUserUseCase(usersRepository, tokensRepository)
 
     await useCase.execute(request.body)
 

@@ -26,7 +26,7 @@ export class PrismaUsersRepository implements UsersRepository {
     }
   }
 
-  async create(data: CreateUserDTO): Promise<User | null> {
+  async create(data: CreateUserDTO): Promise<User> {
     const user = await prisma.user.create({
       data
     })

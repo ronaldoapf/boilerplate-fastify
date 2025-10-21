@@ -1,16 +1,17 @@
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { recoveryPasswordSchema } from "../../dtos/recovery-password-dto";
 import { PrismaTokensRepository } from "../../repositories/prisma/prisma-tokens.repository";
 import { ForgotPasswordUseCase } from "../../use-cases/forgot-password.use-case";
 import { PrismaUsersRepository } from "../../repositories/prisma/prisma-users.repository";
+import { resendUserEmailValidationSchema } from "../../dtos/resend-user-email-validation-dto";
+import { ResendUserEmailValidationUseCase } from "../../use-cases/resend-user-email-validation-use-case";
 
-export const forgotPasswordController: FastifyPluginAsyncZod = async app => {
-  app.post("/users/password/forgot", {
+export const resendUserEmailValidationController: FastifyPluginAsyncZod = async app => {
+  app.post("/users/email/resend", {
     schema: {
-      summary: "Recovery user's password",
-      description: "Endpoint to recovery user's password in the system.",
+      summary: "Resend user email validation",
+      description: "Endpoint to resend user email validation in the system.",
       tags: ["users"],
-      body: recoveryPasswordSchema
+      body: resendUserEmailValidationSchema
     }
   }, async (request, reply) => {
     const { email } = request.body
@@ -18,7 +19,7 @@ export const forgotPasswordController: FastifyPluginAsyncZod = async app => {
     const usersRepository = new PrismaUsersRepository()
     const tokensRepository = new PrismaTokensRepository()
 
-    const useCase = new ForgotPasswordUseCase(usersRepository, tokensRepository)
+    const useCase = new ResendUserEmailValidationUseCase(usersRepository, tokensRepository)
 
     await useCase.execute({
       email
